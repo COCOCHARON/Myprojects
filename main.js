@@ -3,15 +3,39 @@
 
   new WOW().init();
 
+  // Function to check if the clicked element is inside the cart or not
+function isClickedInsideCart(element) {
+    return $(element).closest('.mini_cart').length > 0 || $(element).hasClass('cart_link');
+}
+
+// Function to handle clicks outside the cart
+$(document).on("click", function(event) {
+    if (!isClickedInsideCart(event.target)) {
+        $(".mini_cart").removeClass("active");
+    }
+});
+
+// Handling click events for opening the cart
+$(".cart_link > a").on("click", function (event) {
+    event.stopPropagation(); // Prevent the click event from propagating to the document
+    $(".mini_cart").addClass("active");
+});
+
+// Handling click events for closing the cart
+$(".mini_cart_close > a").on("click", function (event) {
+    event.stopPropagation(); // Prevent the click event from propagating to the document
+    $(".mini_cart").removeClass("active");
+});
+
   //navbar cart
-  $(".cart_link > a").on("click", function () {
+ /* $(".cart_link > a").on("click", function () {
     $(".mini_cart").addClass("active");
   });
 
   $(".mini_cart_close > a").on("click", function () {
     $(".mini_cart").removeClass("active");
   });
-
+*/
   //sticky navbar
   $(window).on("scroll", function () {
     var scroll = $(window).scrollTop();
